@@ -1,30 +1,33 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, Image, ScrollView, Dimensions} from 'react-native';
+import {View, Text, Image, SafeAreaView} from 'react-native';
 import DormButton from '../components/DormButton';
 import {AppColors} from '../constants/AppColors';
+import {useNavigation} from '@react-navigation/native';
 import Orientation from 'react-native-orientation-locker';
+import ContainerView from '../common/ContainerView';
 
 const StarterPage = () => {
   const [step, setStep] = useState(0);
-  const [viewHeight, setViewHeight] = useState(250);
+  const navigation = useNavigation();
 
-  const handleLayoutChange = () => {
-    const {width, height} = Dimensions.get('screen');
-    if (width > height) {
-      setViewHeight(120);
+  useEffect(() => {
+    Orientation.lockToPortrait();
+
+    return () => {
+      Orientation.unlockAllOrientations();
+    };
+  }, []);
+
+  const onNextHandler = () => {
+    if (step == 2) {
+      navigation.navigate('Login');
     } else {
-      setViewHeight(250);
+      setStep(step + 1);
     }
   };
 
-  const onNextHandler = () => {
-    if (step == 2) return;
-    setStep(step + 1);
-  };
-
   const onSkipHandler = () => {
-    if (step != 2) return;
-    setStep(0);
+    navigation.navigate('Login');
   };
 
   const getTitle = () => {
@@ -50,18 +53,12 @@ const StarterPage = () => {
   };
 
   return (
-    <ScrollView
-      contentContainerstyle={{
-        flexGrow: 1,
-        justifyContent: 'space-between',
-      }}
-      onLayout={handleLayoutChange}>
-      <View
-        style={{
-          paddingVertical: 30,
-          paddingHorizontal: 24,
-          // marginHorizontal: 20,
+    <SafeAreaView>
+      <ContainerView
+        styled={{
+          justifyContent: 'space-between',
           alignItems: 'center',
+          backgroundColor: AppColors.white,
         }}>
         <Image
           source={require('../assets/shield.png')}
@@ -70,14 +67,15 @@ const StarterPage = () => {
             height: 300,
           }}
         />
-        <View style={{height: viewHeight}}>
+        <View style={{height: 240}}>
           <Text
             style={{
               paddingTop: 20,
               fontSize: 32,
               fontWeight: '500',
+              fontFamily: 'Urbanist-SemiBold',
               textAlign: 'center',
-              color: '#212121',
+              color: AppColors.black,
             }}>
             {getTitle()}
           </Text>
@@ -86,8 +84,9 @@ const StarterPage = () => {
               paddingTop: 20,
               fontSize: 14,
               fontWeight: '400',
+              fontFamily: 'Urbanist-SemiBold',
               textAlign: 'center',
-              color: '#212121',
+              color: AppColors.black_100,
             }}>
             {getDetail()}
           </Text>
@@ -107,7 +106,8 @@ const StarterPage = () => {
                 width: 5,
                 height: 5,
                 borderRadius: 5,
-                backgroundColor: step == 0 ? AppColors.main : AppColors.grey,
+                backgroundColor:
+                  step == 0 ? AppColors.main : AppColors.grey_300,
                 marginHorizontal: 5,
               }}></View>
             <View
@@ -115,7 +115,8 @@ const StarterPage = () => {
                 width: 5,
                 height: 5,
                 borderRadius: 5,
-                backgroundColor: step == 1 ? AppColors.main : AppColors.grey,
+                backgroundColor:
+                  step == 1 ? AppColors.main : AppColors.grey_300,
                 marginHorizontal: 5,
               }}></View>
             <View
@@ -123,23 +124,24 @@ const StarterPage = () => {
                 width: 5,
                 height: 5,
                 borderRadius: 5,
-                backgroundColor: step == 2 ? AppColors.main : AppColors.grey,
+                backgroundColor:
+                  step == 2 ? AppColors.main : AppColors.grey_300,
                 marginHorizontal: 5,
               }}></View>
           </View>
           <DormButton title={'Next'} onPress={onNextHandler} />
           <DormButton
             title={'Skip'}
-            color={AppColors.grey}
-            textColor={AppColors.balck}
+            color={AppColors.grey_300}
+            textColor={AppColors.lightBalck}
             onPress={onSkipHandler}
             style={{
               paddingVertical: 10,
             }}
           />
         </View>
-      </View>
-    </ScrollView>
+      </ContainerView>
+    </SafeAreaView>
   );
 };
 

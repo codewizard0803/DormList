@@ -1,32 +1,21 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
-import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
-
+import React, {useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {Provider as PaperProvider} from 'react-native-paper';
+import SplashScreen from 'react-native-splash-screen';
 
 import StarterPage from './app/pages/StarterPage';
-import AuthPage from './app/pages/AuthPage';
+import LoginPage from './app/pages/LoginPage';
+import ForgotPasswordPage from './app/pages/ForgotPasswordPage';
+import SignUpPage from './app/pages/SignUpPage';
 
 const Stack = createNativeStackNavigator();
 
 function App(): JSX.Element {
+  // useEffect(() => {
+  //   SplashScreen.hide();
+  // }, []);
+
   return (
     <PaperProvider>
       <NavigationContainer>
@@ -38,10 +27,21 @@ function App(): JSX.Element {
             name="Start"
             component={StarterPage}
           />
-          {/* <Stack.Screen
-            name="Auth"
-            component={AuthPage}
-          /> */}
+          <Stack.Screen
+            name="Login"
+            component={LoginPage}
+            options={{headerTitle: ''}}
+          />
+          <Stack.Screen
+            name="ForgotPassword"
+            component={ForgotPasswordPage}
+            options={{headerTitle: 'Forgot Password'}}
+          />
+          <Stack.Screen
+            name="SignUp"
+            component={SignUpPage}
+            options={{headerTitle: ''}}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>

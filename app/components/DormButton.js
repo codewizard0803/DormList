@@ -1,5 +1,6 @@
 import React from 'react';
 import {TouchableOpacity, Text, View} from 'react-native';
+import {AppColors} from '../constants/AppColors';
 
 const DormButton = ({title, color, textColor, onPress, style}) => {
   return (
@@ -13,15 +14,16 @@ const DormButton = ({title, color, textColor, onPress, style}) => {
         activeOpacity={0.7}
         style={{
           borderRadius: 25,
-          backgroundColor: color ? color : '#FF866D',
+          backgroundColor: color ? color : AppColors.main,
         }}>
         <Text
           style={{
             paddingVertical: 15,
+            fontFamily: 'Urbanist-SemiBold',
             fontSize: 16,
-            fontWeight: 'bold',
+            fontWeight: '600',
             textAlign: 'center',
-            color: textColor ? textColor : '#FFFFFF',
+            color: textColor ? textColor : AppColors.white,
           }}>
           {title}
         </Text>
