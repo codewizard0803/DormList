@@ -37,6 +37,10 @@ const LoginPage = () => {
     navigation.navigate('SignUp');
   };
 
+  const handleSignIn = () => {
+    navigation.navigate('lists');
+  };
+
   return (
     <ScrollView contentContainerStyle={{flexGrow: 1}}>
       <ContainerView>
@@ -81,7 +85,7 @@ const LoginPage = () => {
           />
         </View>
 
-        <DormButton title="Sign in" />
+        <DormButton title="Sign in" onPress={handleSignIn} />
         <View style={styles.forgotPasswordContainer}>
           <Text style={styles.forgotPassword} onPress={handleForgot}>
             Forgot password?

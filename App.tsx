@@ -8,6 +8,7 @@ import StarterPage from './app/pages/StarterPage';
 import LoginPage from './app/pages/LoginPage';
 import ForgotPasswordPage from './app/pages/ForgotPasswordPage';
 import SignUpPage from './app/pages/SignUpPage';
+import MyList from './app/pages/DormList/MyList';
 
 const Stack = createNativeStackNavigator();
 
@@ -41,6 +42,11 @@ function App(): JSX.Element {
             name="SignUp"
             component={SignUpPage}
             options={{headerTitle: ''}}
+          />
+          <Stack.Screen
+            name="lists"
+            component={MyList}
+            options={{headerShown: false}}
           />
         </Stack.Navigator>
       </NavigationContainer>
